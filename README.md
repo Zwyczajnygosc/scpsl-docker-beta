@@ -27,20 +27,21 @@ On top of this, this image is also designed to allow for automatic updates, remo
 new image every time the game updates. This comes at the cost of a slightly longer boot sequence, however
 the worst of this can be addressed by holding steamcmd in a named volume.
 
-## Setup Guide
 
+## Setup Guide
 1. Ensure you have Docker installed and running on your system.
-  - If you need to install Docker, please head to their [website]() for instructions
-3. Run `docker pull doobig/scpsl-docker:latest` or otherwise load the image.
-  - Alternatively, download the `.tar` file and run `docker load`
-4. (Optional) Create a new directory and docker-compose file for the server.
-5. (Optional) Review environment variables and set any configurations neccesary.
-  - See below for an example compose file and list of ENVs
-6. Start the server with `docker run` or `docker compose up` if using docker-compose.
-7. Wait and watch. Startup might take a while without any existing files.
-  - Startup is typically faster if steamcmd and/or config files are made persistent.
-8. (Optional) Ensure any peristent data (I.E Config files) are correctly mounted on the host system.
-  - Config files may need to be regenerated after larger updates, as they can become outdated.
+    - If you need to install Docker, please head to their [website]() for instructions
+2. Run `docker pull doobig/scpsl-docker:latest` or otherwise load the image.
+    - Alternatively, download the `.tar` file and run `docker load`
+3. (Optional) Create a new directory and docker-compose file for the server.
+4. (Optional) Review environment variables and set any configurations neccesary.
+    - See below for an example compose file and list of ENVs
+5. Start the server with `docker run` or `docker compose up` if using docker-compose.
+6. Wait and watch. Startup might take a while without any existing files.
+    - Startup is typically faster if steamcmd and/or config files are made persistent.
+7. (Optional) Ensure any peristent data (I.E Config files) are correctly mounted on the host system.
+    - Config files may need to be regenerated after larger updates, as they can become outdated.
+
 
 ## Configuration
 
