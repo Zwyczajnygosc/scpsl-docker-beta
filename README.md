@@ -2,7 +2,8 @@
 
 ## Contents
 
-  - [Summary](#summary) 
+  - [Summary](#summary)
+  - [Setup Guide](#setup-guide)
   - [Configuration](#configuration)
     - [ENV Variables](#env-variables) 
     - [Volumes & Mounts](#volumes--mounts)
@@ -26,6 +27,20 @@ On top of this, this image is also designed to allow for automatic updates, remo
 new image every time the game updates. This comes at the cost of a slightly longer boot sequence, however
 the worst of this can be addressed by holding steamcmd in a named volume.
 
+## Setup Guide
+
+1. Ensure you have Docker installed and running on your system.
+  - If you need to install Docker, please head to their [website]() for instructions
+3. Run `docker pull doobig/scpsl-docker:latest` or otherwise load the image.
+  - Alternatively, download the `.tar` file and run `docker load`
+4. (Optional) Create a new directory and docker-compose file for the server.
+5. (Optional) Review environment variables and set any configurations neccesary.
+  - See below for an example compose file and list of ENVs
+6. Start the server with `docker run` or `docker compose up` if using docker-compose.
+7. Wait and watch. Startup might take a while without any existing files.
+  - Startup is typically faster if steamcmd and/or config files are made persistent.
+8. (Optional) Ensure any peristent data (I.E Config files) are correctly mounted on the host system.
+  - Config files may need to be regenerated after larger updates, as they can become outdated.
 
 ## Configuration
 
@@ -39,9 +54,12 @@ the worst of this can be addressed by holding steamcmd in a named volume.
 
 
 ### Volumes & Mounts
-`/config` is provided as a read/write mountpoint for `/home/<user>/.config/`
-- `/config/SCP: Secret Laboratory` should contain all base game SCP:SL configs
+`/config` is provided as an easy to access symlink for `/home/<user>/.config/` to
+provide a user agnostic mountpoint. This allows for easy persistence of all config files
+and/or plugins if appropriate.
 
+- `/config/SCP Secret Laboratory` should contain all base game SCP:SL data
+- `/config/EXILED` should contain all EXILED data. (W.I.P)
 
 **_All volumes should be read/writable by GUID 22035 to ensure functionality_**
 
@@ -67,8 +85,8 @@ services:
       SCPSL_PORT: 7777
 
     volumes:
-      - ./scpsl-data:/config/SCP Secret Laboratory
 #      - steamcmd:/home/scpsl/.steamcmd
+      - ./scpsl-data:/config/SCP Secret Laboratory
 
 #volumes:
 #  steamcmd:
