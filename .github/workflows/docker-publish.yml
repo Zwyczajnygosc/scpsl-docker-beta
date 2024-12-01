@@ -1,4 +1,4 @@
-name: Build push image
+name: Docker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -17,7 +17,12 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest      
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,7 +40,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }} 
           username: ${{ github.actor }}
-          password: ${{ secrets.PACKAGES_READ_WRITE_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -45,6 +50,6 @@ jobs:
         with:
           context: ./build
           push: true
-          tags: ${{ env.TAG }}
+          tags: {{ env.REGISTRY }}/${{ env.TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
