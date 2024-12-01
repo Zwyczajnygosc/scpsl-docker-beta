@@ -38,6 +38,6 @@ jobs:
         with:
           context: ./build
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.TAG }}
+          tags: ${{ env.IMAGE_NAME}}:${{ env.TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
