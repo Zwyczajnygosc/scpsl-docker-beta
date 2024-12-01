@@ -2,6 +2,6 @@
 
 (cd "${WORK_DIR}/${SERVER_DIR}" || exit
 
-  ./LocalAdmin "$SCPSL_PORT"
+  ./LocalAdmin "$SCPSL_PORT" --acceptEULA
 
 )
